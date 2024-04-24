@@ -2,30 +2,137 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <!-- files in public folder are served as root. Here the favicon is taken from the public folder. -->
-  <link rel="icon" type="image/png" href="favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, minimum-scale=1.0">
-  <title>(Babylon.js + vite) boilerplate</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <title>threejs fps</title>
   <style>
-    body {
-      margin: 0px;
+    html, body {
       overflow: hidden;
-      position: absolute;
+      margin: 0px;
       width: 100%;
       height: 100%;
     }
 
-    #renderCanvas {
+    #webgl {
       width: 100%;
       height: 100%;
+    }
+
+    .aim {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1px;
+      height: 1px;
+      border-radius: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      border: 2px solid white;
+      z-index: 2;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .aiming {
+      width: 10px;
+      height: 10px;
+    }
+
+    #blocker {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 3;
+      backdrop-filter: blur(6px);
+    }
+
+    #instructions {
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 14px;
+      cursor: pointer;
+      color: #ffffff;
+    }
+
+    #loading {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 14px;
+      cursor: pointer;
+      color: #ffffff;
+    }
+
+    #bullet-count {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      z-index: 2;
+      color: #ffffff;
+    }
+
+    #bullet-num {
+      font-size: 24px;
+    }
+
+    #tips {
+      position: absolute;
+      color: #ffffff;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      top: 20px;
+    }
+
+    #interaction {
+      position: absolute;
+      color: #ffffff;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      top: calc(100vh * 0.3);
+      visibility: hidden;
+    }
+
+    #input-wrapper {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      bottom: 20px;
+      visibility: hidden;
     }
   </style>
 </head>
 
 <body>
-  <canvas id="renderCanvas"></canvas>
-  <script type="module" src="/src/main.ts"></script>
+  <div id="blocker">
+    <!-- <div id="loading" style="font-size:36px">Loading...</div> -->
+    <div id="instructions">
+      <p style="font-size:36px">
+        点击屏幕开始
+      </p>
+      <p>
+        <br /><br />
+        (W, A, S, D = 移动, SPACE = 跳跃, MOUSE = 移动视角)
+      </p>
+    </div>
+  </div>
+  <div id="tips"></div>
+  <div id="aim" class="aim"></div>
+  <div id="bullet-count"><span id="bullet-num"></span> | 30</div>
+  <div id="interaction">按 F 交谈</div>
+  <div id="input-wrapper"><input id="input" /><button id="submit">提交</button></div>
+  <canvas id="webgl"></canvas>
+  <script type="module" src="/src/index.ts"></script>
 </body>
 
 </html>
